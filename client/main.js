@@ -8,6 +8,7 @@ console.log(navigator.language);
 
 const a = 10;
 
-
+// console.log(global);
+console.log(window);
 
 // console.log(a);
