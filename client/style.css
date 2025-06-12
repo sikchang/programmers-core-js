@@ -20,12 +20,14 @@ span{
     justify-content: center;
     align-items: center;
   }
-  
-  
-  
-  .circle{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: dodgerblue;
-  }
+
+.circle{
+width: 30px;
+height: 30px;
+border-radius: 50%;
+background-color: dodgerblue;
+}
+
+li[data-name="contact"]{
+
+}
