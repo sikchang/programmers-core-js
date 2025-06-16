@@ -56,10 +56,11 @@ for (const a of about.attributes) {
 }
 
 
-
-
-
-
+// 유틸에 attr.js에 있음
+/* getAttr('.first', 'class'); //first
+setAttr('.first', 'id', '');
+attr('.first', 'class', 'hello'); */
+// attr('.first', 'class');
 
 /* 비표준 속성, 프로퍼티 설정 ------------------------------------------------- */
 
