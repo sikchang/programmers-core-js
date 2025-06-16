@@ -34,6 +34,7 @@ export default defineConfig([
         ...globals.node,
         ...types,
         ...lib,
+        gsap:true,
       }
     },
     rules: {
