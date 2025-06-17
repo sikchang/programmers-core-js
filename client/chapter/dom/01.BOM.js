@@ -1,3 +1,4 @@
+
 /* ------------------------------ */
 /* Browser Object Model           */
 /* ------------------------------ */
@@ -17,15 +18,16 @@ JavaScript가 작동하는 플랫폼은 호스트(host)라고 불립니다.
 제어하기 위해 브라우저(호스트 환경)가 제공하는 추가 객체를 나타냅니다.
 */
 
+
 /* Window 객체 ----------------------------------------------------------- */
 
 const { alert, confirm, prompt, setTimeout, setInterval, console } = window;
 
+
 /* Location 객체 --------------------------------------------------------- */
 // http://localhost:5500/index.html?type=listing&page=2#title
 
-const { href, protocol, host, port, search, hash, replace, reload, pathname } =
-  location;
+const { href, protocol, host, port, search, hash, replace, reload, pathname } = location;
 
 /* 
 href : http://localhost:5500/index.html?type=listing&page=2#title
@@ -39,11 +41,13 @@ pathname: /index.html
 // useParams()
 console.log(hash);
 
+
 const urlParams = new URLSearchParams(location.search);
 
 // for (const [key, value] of urlParams) {
 //   console.log(`${key}:${value}`);
 // }
+
 
 /* Navigator 객체 -------------------------------------------------------- */
 
@@ -51,93 +55,127 @@ const { platform, userAgent, language, onLine, geolocation } = navigator;
 
 // callback => promise API
 
-function getGeolocation(success) {
-  navigator.geolocation.getCurrentPosition((data) => {
-    const { latitude: lat, longitude: long } = data.coords;
+function getGeolocation(success){
 
-    success({ lat, long });
-  });
+
+  navigator.geolocation.getCurrentPosition((data)=>{
+    const {latitude:lat, longitude:long} = data.coords;
+
+    success({ lat, long })
+    
+  })
+
 }
 
-getGeolocation((data) => {
-  console.log(data);
+getGeolocation((data)=>{
+  console.log( data );
 
-  () => {
-    () => {};
-  };
-});
+  ()=>{
+    ()=>{
 
-function _getGeolocation() {
-  const p = new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition((data) => {
-      const { latitude: lat, longitude: long } = data.coords;
-      resolve({ lat, long });
-    });
-  });
+    }
+  }
+  
+})
+
+
+function _getGeolocation(){
+
+  const p = new Promise((resolve,reject)=>{
+    navigator.geolocation.getCurrentPosition((data)=>{
+      const {latitude:lat, longitude:long} = data.coords;
+      resolve({lat,long})
+    })
+  })
   return p;
 }
 
 _getGeolocation()
-  .then((data) => console.log(data))
-  .then()
-  .then()
-  .then()
-  .then();
+.then((data)=> console.log(data))
+.then()
+.then()
+.then()
+.then()
 
-// async await
+
+// async await 
 // const {lat,long} = _getGeolocation();
 
 // navigator.mediaDevices.getUserMedia({video:true})
 // .then((stream)=>{
 //   console.log( stream );
 //   document.querySelector('#videoElement').srcObject = stream;
-
+  
 // })
+
+
+
 
 /* Screen 객체 ----------------------------------------------------------- */
 
 const { width, height, availWidth, availHeight, orientation } = screen;
+
 
 /* History 객체 ---------------------------------------------------------- */
 
 const { back, forward, go, length, pushState, replaceState } = history;
 
 
-// SPA 페이지 만들기
+
+
 const links = document.querySelectorAll('a');
 
-function about() {
+
+function about(){
+  
   return `
     <h1>About PAGE 입니다!</h1>
     <div>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias provident expedita aspernatur cupiditate amet repellat magni? Numquam minima exercitationem ratione? Consectetur doloribus incidunt iste nam odio nihil exercitationem eaque magnam.</p>
     </div>
-  `;
+  `
 }
+
 
 const routes = {
   '/': '<h1>Home PAGE 입니다~!~!</h1>',
-  '/about': about(),
+  '/about': about,
   '/contact': '<h1>Contact PAGE 입니다!</h1>',
-};
+}
 
-const app = document.querySelector('#app');
+const app = document.getElementById('#app');
 
-function router() {
+function router(){
   const path = location.pathname;
   app.innerHTML = routes[path] || `<h1>404 not found</h1>`;
 }
 
-links.forEach((a) => {
-  a.addEventListener('click', function (e) {
+links.forEach((a)=>{
+  
+  a.addEventListener('click',function(e){
     e.preventDefault();
     const href = this.href;
 
-    history.pushState({ page: 2 }, '', href);
+    history.pushState(null,'',href);
     router();
-  });
-});
 
-window.addEventListener('popstate', (e) => {
-  console.log(e.state);
-});
+
+  })
+})
+
+
+window.addEventListener('popstate',(e)=>{
+    console.log( e.state );
+})
+
+window.addEventListener('DOMContentLoaded',router)
+
+
+
+
+
+
+
+
+
+

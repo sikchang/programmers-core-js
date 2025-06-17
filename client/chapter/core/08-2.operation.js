@@ -2,30 +2,41 @@
 /* Comparison Operator */
 /* ------------------- */
 
+prompt('당신의 나이는?','')
+
+
 const number = [10, '10', 6, 101, 10_000];
+
 
 // ~ 보다 큼 또는 작음 → boolean
 let lessThen = number[0] < number[3];
-console.log(lessThen);
-let greaterThen = number[0] > number[4];
-console.log(greaterThen);
+
+console.log( lessThen )
+
+
+let greaterThen = number[0] > number[2];
+
+
+console.log( greaterThen );
+
+
 // ~ 보다 크거나 작음 또는 같음 → boolean
-let lessThenAndEqual = number[3] >= number[4];
-console.log(lessThenAndEqual);
-let greaterThenAndEqual = number <= number[4];
-console.log(greaterThenAndEqual);
+let lessThenAndEqual = number[3] >= number[4] ;
+
+console.log( lessThenAndEqual );
+
+
+let greaterThenAndEqual = number[3] <= number[4] ;
 
 // 동등(등급이나 정도가 같다) → boolean
 let equal = number[0] == number[1];
-console.log(equal);
+console.log( equal );
 
 // 다름(같지 않음) → boolean
 let unequal = number[0] !== number[1];
-console.log(unequal);
 
-// 동일(똑같다) OR 일치비교 → boolean
+// 동일(똑같다) → boolean
 let same = number[0] === number[1];
-console.log(same);
 
 
 // 문자 비교
@@ -34,6 +45,7 @@ console.log(same);
 // 예) 'ㅎ' > 'ㄱ' → true
 // 소문자가 대문자보다 크다고 판단
 // 예) 'A' > 'a' → false
+
 
 // 문자 비교 알고리즘(문제 해결을 위한 절차)
 // 1. 두 문자열의 첫 글자 비교

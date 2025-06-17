@@ -1,1 +1,5 @@
-export { default as shake } from './shake.js'
+
+// re-export 
+
+
+export {default as shake} from './shake.js';

@@ -8,34 +8,40 @@
 // console.log('총 합 = ', 560 + 5000 + 27100 + 10200);
 // console.log('총 합 = ', 9000 - 2500 + 5000 + 11900);
 
-function getRandomValue() {
-    return Math.random() > 0.5 ? 1 : 0;
+function getRandomValue(){
+  return Math.random() > 0.5 ? 1 : 0;
 }
-
 
 // 함수 선언
-function calcPrice(
-    PriceA,
-    PriceB = getRandomValue(),
-    PriceC = getRandomValue(),
-    PriceD = getRandomValue()
-) {
-  // if (PriceD === undefined) PriceD = 0;
-  // if (!PriceD) PriceD = 0;
-  // PriceD = PriceD || 0;
-  // PriceD ||= 0; // 단축 할당 연산
-  // PriceD = PriceD ?? 100;
-  // PriceD ??= 100;
 
-    if (!PriceA) {
-        throw new Error('calcPrice 함수는 1개 이상의 매개변수를 설정해야 합니다.') // 에러 생성자 함수
-    }
-    
-  return PriceA + PriceB + PriceC + PriceD;
+function calcPrice(
+  priceA,
+  priceB = getRandomValue(),
+  priceC = getRandomValue(),
+  priceD = getRandomValue()
+){
+
+  // if(priceD === undefined) priceD = 0;
+  // if(!priceD) priceD = 0;
+  // priceD = priceD || 0;
+  // priceD ||= 1000;
+  // priceD = priceD ?? 100;
+  // priceD ??= 100;
+
+  if(!priceA){
+    throw new Error('calcPrice 함수는 1개 이상의 매개변수를 설정해야 합니다.');
+  }
+
+
+  return priceA + priceB + priceC + priceD
 }
+
 // 함수 호출
 const result = calcPrice(1000);
-console.log(result);
+
+console.log( result );
+
+
 // 함수 값 반환
 
 // 매개 변수
@@ -48,14 +54,28 @@ console.log(result);
 
 // 좋은 함수 작성 여건
 
-/* 
-1. 함수는 하나의 기능만을 수행해야 한다.
-2. 외부변수를 직접 수정하지 않는다.
-3. 함수는 재사용성이 좋아야 한다. (매개변수)
-4. 함수는 이름이 명확해야한다.(동사) => 가독성 => 바로 알 수 있게
-    get...show
-5. 인자와 인수는 (4개 이상을 넘지 않는다.)
-*/
+
+// 1. 함수는 하나의 기능만을 수행해야 한다.
+// 2. 외부변수를 직접 수정하지 않는다.
+// 3. 함수는 재사용성이 좋아야 한다. (매개변수)
+// 4. 함수는 이름을 잘 지어야 한다.(동사) => 가독성 => 바로 알 수 있게. get..show...
+// 5. 인자와 인수는 (4개 이상을 넘지 않는다)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -64,18 +84,27 @@ console.log(result);
 // rem(pxValue: number|string, base: number):string;
 let rem;
 
+
+
+
 // css(node: string, prop: string, value: number|strung) : string;
 let css;
 
-// node의 값을 'h1'으로 받았을 경우
+
+
+
+
+// node의 값을 'h1'으로 받았을 경우 
 
 // node가 없거나 document.ELEMENT_NODE가 아닐 경우
 
 // prop의 값이 string이 아닐 경우
 
-// prop의 값이 style 속성이 아닐 경우
+// prop의 값이 style 속성이 아닐 경우 
 
-// value의 값이 number가 아닌 경우
+// value의 값이 number가 아닌 경우 
+
+
 
 // 클릭 이벤트를 이용한 h1의 폰트 크기를 증가시키는 함수와 감소시키는 함수 만들기
 

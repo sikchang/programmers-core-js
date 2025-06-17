@@ -1,17 +1,17 @@
 import {
+  copy,
+  shake,
+  addClass,
   getRandom,
+  showAlert,
   insertLast,
+  removeClass,
   getNode as $,
   clearContents,
-  addClass,
-  removeClass,
-  isNumbericString,
-  shake,
-  copy,
+  isNumericString,
 } from './lib/index.js';
 
 import data from './data/data.js';
-import { showAlert } from './lib/dom/showAlert.js';
 
 /* 
 
@@ -41,6 +41,7 @@ const submit = $('#submit');
 const nameField = $('#nameField');
 const result = $('.result');
 
+
 function handleSubmit(e) {
   e.preventDefault();
 
@@ -49,31 +50,28 @@ function handleSubmit(e) {
   const pick = list[getRandom(list.length)];
 
 
-  if (!name || name.replaceAll(' ','') === '') {
+  if(!name || name.replaceAll(' ','') === ''){
 
     showAlert({
-      target: '.alert-error',
-      message:'공백 허용되지 않습니다.',
-      timeout: 2000,
-      className: 'is-active',
+      target:'.alert-error',
+      message:'공백은 허용되지 않습니다.',
+      timeout:2000,
+      className:'is-active'
     })
 
-    // addClass('#nameField','shake')
-    shake('#nameField');
-
+    shake(nameField)
     return;
   }
 
-  if (!isNumbericString(name)) {
+  if(!isNumericString(name)){
     showAlert({
-      target: '.alert-error',
-      message: '정확한 이름을 입력해 주세요.',
-      timeout: 2000,
-      className: 'is-active',
-    });
+      target:'.alert-error',
+      message:'정확한 이름을 입력해 주세요.',
+      timeout:2000,
+      className:'is-active'
+    })
 
-    shake('#nameField');
-
+    shake(nameField)
     return;
   }
 
@@ -81,21 +79,40 @@ function handleSubmit(e) {
   insertLast(result, pick);
 }
 
-function handleCopyClipboard() {
+function handleCopyClipboard(){
   
   const text = this.textContent;
-
+  
+  
   copy(text)
-    .then(() => {
-      showAlert({
-        target: '.alert-success',
-        className: 'is-active',
-        message: '클립보드 복사 완료!!',
-        timeout: 2000,
-      });
-    });
+  .then(()=>{
+    showAlert({
+      target:'.alert-success',
+      className:'is-active',
+      message:'클립보드 복사 완료!!',
+      timeout:2000,
+    })
+  })
+  
+  
 }
 
 submit.addEventListener('click', handleSubmit);
 
-result.addEventListener('click', handleCopyClipboard);
+result.addEventListener('click',handleCopyClipboard)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

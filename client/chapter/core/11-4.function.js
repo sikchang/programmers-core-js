@@ -4,7 +4,7 @@
 
 // 재귀(Recursion)
 // 사전적 정의: "본래 있던 곳으로 다시 돌아옴"
-// 프로그래밍 정의:
+// 프로그래밍 정의: 
 // - "문제 해결을 위해 함수 자신을 다시 호출"
 // - "어떤 프로시저(절차)가 자기 자신을 반복적 호출하여 문제를 풀어 나가는 알고리즘"
 
@@ -15,39 +15,48 @@
 // - 재귀 단계(step)
 // - 재귀 깊이(depth)
 
-function pow(x,n) {
-    if (n === 1) {
-        return x;
-    } else {
-        return x * pow(x, n - 1)
-    }
+
+function pow(x, n){
+  if(n === 1){
+    return x;
+  }else{
+    return x * pow(x , n - 1);
+  }
 }
+
+
 
 pow(2,3)
 
+
+
+
+
+
 // factorial 함수를 재귀 호출 방식으로 작성
 // 참고: https://bit.ly/factorial-util
+// https://ko.wikipedia.org/wiki/%EA%B3%84%EC%8A%B9_(%EC%88%98%ED%95%99)
 // - 팩토리얼 = 그 수보다 작거나 같은 모든 양의 정수의 곱
 // - 기호(!)를 사용하여 n!으로 표기
 // - 예시) 4! = 4 * 3 * 2 * 1
 
-function factorial(n) {
-    if (n === 1) return n;
-    else return n * factorial(n - 1);
+
+function factorial(n){
+  if(n === 1) return n;
+  else return n * factorial(n - 1);
 }
 
-factorial(6)
 
 // fibonacci 함수를 재귀 호출 방식으로 작성
 // 참고: https://bit.ly/fibonacci-util
 // - 피보나치 수 = 처음과 두번째 항은 1이고, 그 뒤 모든 항은 바로 앞 두 항을 더한 합인 수열
 // 예시) 1, 1, 2, 3, 5, 8, ...
-function fibonacci(n) {
-    if (n <= 0) return 0;
-    if (n <= 2) return 1;
-    return fibonacci(n - 1) + fibonacci(n - 2);
-}
 
+function fibonacci(n){
+  if(n <= 0) return 0;
+  if(n <= 2) return 1;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
 
 // -----------------------------------------------------------------------
 
@@ -62,6 +71,7 @@ function fibonacci(n) {
 //   - 중첩 호출 실행이 종료되면 실행 컨텍스트 스택에서 일시 중단된 함수 실행 컨텍스트 꺼냄(pop)
 //   - 다시 중단되었던 함수의 실행을 이어감
 
+
 // -----------------------------------------------------------------------
 
 // 반복문 기반 알고리즘 vs. 재귀 호출 알고리즘
@@ -73,32 +83,39 @@ function fibonacci(n) {
 // - 작성하는 모든 곳에서 메모리 최적화가 필요한 것은 아니므로 가독성을 높이는 코드가 필요
 // - 재귀는 코드를 짧게 만들고, 코드 이해도를 높이며 유지보수에도 이점이 있어 많이 사용됨
 
+
 // -----------------------------------------------------------------------
 
 // 메모이제이션을 사용한 fibonacci 함수를 작성해보세요.
 // 참고: https://bit.ly/memoiz
 // - 동일 계산 반복 시, 이전 계산 값을 메모리에 저장하여 실행 속도를 높이는 방법
 
-// const cache = {};
+
+
+
 
 const memoFibo = (n) => {
-    if (n <= 0) return 0;
-    if (n <= 2) return 1;
 
-    if (memoFibo.cache[n]) {
-        return memoFibo.cache[n];
-    } else {
-        return memoFibo.cache[n] = memoFibo(n - 1) + memoFibo(n - 2);
-    }
+  if(n <= 0) return 0;
+  if(n <= 2) return 1;
+
+  if(memoFibo.cache[n]){
+    return memoFibo.cache[n];
+  }else{
+    return memoFibo.cache[n] = memoFibo(n - 1)+ memoFibo(n - 2);
+  }
 }
-// 함수를 객체처럼 사용
+
 memoFibo.cache = {};
+
+
+
 
 // 회사 부서 팀원들의 월급 총 합을 구해보세요.
 // - 반복문 기반 또는 재귀 호출 알고리즘 중 택 1
 
-const SocialPartiners = {
-  foundingDate: 2021,
+const SocialPartners = {
+	foundingDate: 2021,
   team: {
     marketing: [
       {
@@ -139,20 +156,41 @@ const SocialPartiners = {
   },
 };
 
-// 재귀함수는 역순으로 생각을 해주면 좋다.
-function sumSalaries(department) {
 
-    if (Array.isArray(department)) {
-        //
-        return department.reduce((acc, cur) => acc + cur.salary,0);
-    } else {
-        let sum = 0;
-        for (let sub of Object.values(department)) {
-            sum += sumSalaries(sub);
-        }
-        return sum
+function sumSalaries(department){
+
+  if(Array.isArray(department)){
+    return department.reduce((acc, cur)=> acc + cur.salary,0);
+  }
+  else{
+    let sum = 0;
+
+    for(let sub of Object.values(department)){
+      sum += sumSalaries(sub);
     }
-
+    return sum;
+  }
 }
 
-sumSalaries(SocialPartiners);
+
+
+sumSalaries(SocialPartners)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

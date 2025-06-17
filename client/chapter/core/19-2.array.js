@@ -4,61 +4,64 @@
 
 // Array.isArray
 
+
 const people = [
-    {
-        id: 0,
-        name: '이순신',
-        age: 40,
-        job: '장군',
-        imgSrc: 'https://randomuser.me/api/portraits/med/men/75.jpg',
-        imgAlt:'대체 텍스트입니다..'
-    },
-    {
-        id: 1,
-        name: '장보고',
-        age: 42,
-        job: '해군',
-        imgSrc: 'https://randomuser.me/api/portraits/med/men/30.jpg',
-        imgAlt:'대체 텍스트입니다..'
-    },
-    {
-        id: 2,
-        name: '홍길동',
-        age: 38,
-        job: '조선 루팡 2세',
-        imgSrc: 'https://randomuser.me/api/portraits/med/men/20.jpg',
-        imgAlt:'대체 텍스트입니다..'
-    }
+  {
+    id:0,
+    name: '김유하',
+    age: 38,
+    job: '나니가스키',
+    imgSrc:'https://randomuser.me/api/portraits/med/men/75.jpg',
+    imgAlt:'대체 텍스트입니다...'
+  },
+  {
+    id:1,
+    name: '백효영',
+    age: 15,
+    job: '공주님',
+    imgSrc:'https://randomuser.me/api/portraits/med/men/50.jpg',
+    imgAlt:'대체 텍스트입니다...'
+  },
+  {
+    id:2,
+    name: '박진강',
+    age: 41,
+    job: '기업 이사 전문 업체',
+    imgSrc:'https://randomuser.me/api/portraits/med/men/20.jpg',
+    imgAlt:'대체 텍스트입니다...'
+  },
 ]
+
+
 
 /* 요소 순환 ---------------------------- */
 
 // forEach
 
-
-// people.forEach((user) => {
-//     console.log(user);
-// })
-
-// 위 화살표함수는 인행이 이렇게 된다.
-/* function user(user) {
-    console.log(user);
+function user(user){
+  // console.log(user);
+  
 }
-people.forEach(user); */
+
+people.forEach(user);
+
 
 const spans = document.querySelectorAll('span');
 
-// event delegation => 위임 (나중에 따로 배움)
-spans.forEach((span, index) => {
-    span.addEventListener('click', (e)=>{
-        
-        // 해당 span 클릭 시 글자 색 오렌지로 변경
-        e.currentTarget.style.color = 'orange'
 
-        console.log(e.currentTarget);
+// event delegation => 이벤트 위임 
 
-    })
+spans.forEach((span,index)=>{
+  span.addEventListener('click',(e)=>{
+
+    e.currentTarget.style.color = 'orange'
+    
+    console.log();
+    
+  })
 })
+
+
 
 /* 원형 파괴 ----------------------------- */
 
@@ -67,7 +70,7 @@ spans.forEach((span, index) => {
 // unshift
 // shift
 
-// reverse는 위험하다 원본을 훼손하기 때문에. 그러나 toReversed는 안전하다.
+
 const reverse = people.toReversed();
 console.log( reverse );
 
@@ -122,10 +125,11 @@ const tags = people.map((user)=> {
   `
   return template
 
-})
+}).join('')
 
-tags.forEach((li)=> document.querySelector('ul').insertAdjacentHTML('beforeend',li))
+// tags.forEach((li) => document.querySelector('ul').insertAdjacentHTML('beforeend',li))
 
+document.querySelector('ul').insertAdjacentHTML('beforeend',tags)
 
 
 
@@ -149,16 +153,166 @@ tags.forEach((li)=> document.querySelector('ul').insertAdjacentHTML('beforeend',
 // find
 // findIndex
 
+
+
+const az = people.find((user)=>{
+  return user.age > 40
+})
+
+console.log( az );
+
+
+
 /* 요소 걸러내기 --------------------------- */
 
 // filter
+
+const mz = people.filter( user => user.age > 20);
+
+
+
 
 /* 요소별 리듀서(reducer) 실행 -------------- */
 
 // reduce
 // reduceRight
 
+
+
+const total = people.reduce((acc,cur)=>{
+  return acc + cur.age
+},0)
+
+
+
+const template = people.reduce((htmlCode,user)=>{
+  return htmlCode + `<li>${user.name}, ${user.age}, ${user.job}</li>`
+},'')
+
+
+document.querySelector('ul').insertAdjacentHTML('beforeend',template)
+
+
+
+
+
 /* string ←→ array 변환 ------------------ */
+
+const _arr = '안/녕/하/세/요';
 
 // split
 // join
+
+
+const stringToArray = _arr.split('/');
+
+
+console.log( stringToArray );
+
+
+const arrayToString = stringToArray.join('-');
+
+
+console.log( arrayToString );
+
+
+
+
+const products = [
+  {name:'냉동 만두',price:10000,brand:'비비고'},
+  {name:'냉동 피자',price:15000,brand:'오뚜기'},
+  {name:'냉동 새우',price:12000,brand:'하림'},
+  {name:'냉동 치킨',price:11000,brand:'곰곰'},
+]
+
+
+const _forEach = (f,i) => {
+  for( const a of i) f(a);
+}
+
+
+_forEach((item)=>{
+
+  console.log( item );
+  
+ }, products)
+
+
+ console.clear();
+
+
+
+const _map = (f,i) => {
+  const arr = [];
+
+  for(const a of i){
+    arr.push(f(a));
+  }
+
+  return arr;
+}
+
+const newArray = _map(item => item.brand, products);
+
+
+
+const _filter = (f,i) => {
+  const arr = [];
+
+  for(const a of i ){
+
+    if(f(a)) arr.push(a);
+
+  }
+
+  return arr;
+}
+
+
+const product = _filter(item => item.price < 15000, products);
+
+
+
+
+
+// _reduce(
+//   add,
+//   _map(p => p.price,
+//     _filter( p => p.price < 20000, products)
+//   )
+// )
+
+
+// f(
+//   f(
+//     f(
+//       f(
+
+//       ))))
+
+
+
+      // currying function
+
+      // flat 
+      // reduce,
+      // add,
+      // map,
+      // filter,
+      // log(products)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
