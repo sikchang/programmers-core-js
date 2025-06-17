@@ -1,3 +1,10 @@
-export function copy(text) {
-    return navigator.clipboard.writeText(text);
+
+
+export function copy(text){
+   return navigator.clipboard.writeText(text)
 }
+
+
+
+
+

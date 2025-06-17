@@ -7,6 +7,7 @@
 
 
 
+
 // var는 변수의 중복 선언을 허용합니다
 // var는 블록 스코프를 무시합니다.
 
@@ -14,40 +15,63 @@
 let a = 10;
 
 {
-    let b = 20;
+  let b = 20;
 }
 
-console.log(a);
+console.log( a );
 
 
 // 선언하기 전 사용할 수 있는 var
 
-// console.log(c);
+
+// console.log( c );
+
 
 // var c = 100;
 let c = 100;
 
 
-// 함수는 자신만의 스코프를 따로 가집니다. 함수 스코프 (함수 실행 환경)
-// var outside = 'outer';
+
+// 함수는 자신만의 스코프를 따로 가집니다. 함수 스코프 ( 함수 실행 환경 )
+
+
 let outside;
 
-function sum() {
-    outside = 'outer';
+function sum(){
+  outside = 'outer';
+  
 }
+
 
 
 sum()
 
-
 console.log(outside);
 
-let age = 30;
-let nickName = 'sik';
 
-console.log(`나는 ${nickName}야 나이는 ${age}`);
 
-/* 
-표현식, 연산자 = 값을 반환
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

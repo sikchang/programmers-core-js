@@ -1,8 +1,12 @@
+
+
+
+
 const links = document.querySelectorAll('nav a');
 const depthList = document.querySelectorAll('.depth');
 const header = document.querySelector('#header');
 
-/*  복습 할 때 주석을 생각해서 해보도록
+/* 
 1. 각 메뉴에 마우스를 올렸을 때 
 2. 선택된 자식의 depth를 찾아서 
     - 대상의 마지막 자식 요소 (lastElementChild)
@@ -19,36 +23,77 @@ const header = document.querySelector('#header');
 //   t.style.height = 0
 // }
 
-const h = (t) => (t.style.height = 0);
 
-function vanilla() {
-    links.forEach((a) => {
-      a.addEventListener('mouseenter', (e) => {
-        const currentDepth = e.currentTarget.lastElementChild;
+function vanilla(){
 
-        // 모든 depth 높이 없애!
-        depthList.forEach(h);
+  const h = t => t.style.height = 0;
 
-        currentDepth.style.height = '100px';
-      });
-    });
+  links.forEach((a)=>{
+    a.addEventListener('mouseenter',(e) => {
+      const currentDepth = e.currentTarget.lastElementChild;
 
-    // header.addEventListener('mouseleave',()=>{
+      // 모든 depth 높이 없애!
+      depthList.forEach(h)
+      currentDepth.style.height = '100px';
+        
+    })
+  })
 
-    //   depthList.forEach((d) => {
-    //     d.style.height = 0
-    //     h(d)
-    //   })
 
-    // })
 
-    header.addEventListener('mouseleave', () => depthList.forEach(h));
+  // header.addEventListener('mouseleave',()=>{
+    
+  //   depthList.forEach((d) => {
+  //     d.style.height = 0
+  //     h(d)
+  //   })
+    
+  // })
+
+  header.addEventListener('mouseleave',()=> depthList.forEach(h))
+
 }
 
-// console.log(gsap);
 
-links.forEach((a) => {
 
-    a.addEventListener('mouseenter', () => { })
-    
+
+
+links.forEach((a)=>{
+
+  const currentDepth = a.lastElementChild;
+
+  const tl = gsap.timeline({paused:true})
+              .to(currentDepth,{height:100,duration:0.2,ease:'power2.inOut'})
+
+  a.addEventListener('mouseenter', () => tl.play())
+  a.addEventListener('mouseleave', () => tl.reverse())
 })
+
+// const tl = gsap.timeline({
+//   defaults:{
+//     // duration:5,
+//   }
+// });
+
+// tl.to('.logo',{ x:100 })
+// tl.to('.logo',{ y:100 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
