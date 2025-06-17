@@ -14,7 +14,7 @@ export const isString = data => typeOf(data) === 'string';
 export const isNumber = data => typeOf(data) === 'number';
 export const isMath = data => typeOf(data) === 'math';
 export const isBigInt = data => typeOf(data) === 'bigint';
-
+export const isNumbericString = data => isNaN(Number(data));
 
 
 
