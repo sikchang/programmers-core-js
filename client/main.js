@@ -1,101 +1,138 @@
-import {
-  getRandom,
-  insertLast,
-  getNode as $,
-  clearContents,
-  addClass,
-  removeClass,
-  isNumbericString,
-  shake,
-  copy,
-} from './lib/index.js';
+import { attr, diceAnimation, getNode, insertLast } from './lib/index.js';
 
-import data from './data/data.js';
-import { showAlert } from './lib/dom/showAlert.js';
+
+// 구조분해
+const [
+  rollingButton,
+  recordButton,
+  resetButton] = document.querySelectorAll('.buttonGroup button');
+
+const recordListWrapper = getNode('.recordListWrapper');
+
+// const rollingButton = button[0]
+// const recordButton = button[1]
+// const resetButton = button[2]
 
 /* 
+  1. 주사위 굴리기 버튼을 선택
+    -querySelector OR getNode
 
-[phase-1]
+  2. 클릭 이벤트 바인딩
+    - click
 
-1. 주접 떨기 버튼을 클릭하는 함수
-    - 주접 떨기 버튼 가져오기
-    - 이벤트 연결 'click'
+  3. setInterval diceAnimation 
+    - setInterval diceAnimation
 
-2. input 값 가져오기 
-    - input.value
+  4. 같은 버튼을 눌렀을 때 토글 처리
+    - 상태 변수 만들기
+      - isClicked = false;
 
-3. data 함수에서 주접 이름 넣고 꺼내기 => [] 리턴값 확인
-    - n번째 주접 랜덤 pick 하기 
-
-4. result에 렌더링 하기
-    - insertLast 
-
-[phase-2]
-5. 예외 처리
-    - 이름이 없을 경우 에러
-    - 숫자만 들어오면 에러
-
+      - isClicked = !isClicked;
+    - 조건 처리
+  
+  5. 애니메이션 재생 or 정지
+    - setInterval
+    - clearInterval
+  
+  6. recordButton, resetButton 활성화/비활성화
+    - target.
 */
 
-const submit = $('#submit');
-const nameField = $('#nameField');
-const result = $('.result');
 
-function handleSubmit(e) {
-  e.preventDefault();
+/*
+    4. 같은 버튼을 눌렀을 때 토글 처리
+  - 상태 변수 만들기
+    - isClicked = false;
 
-  const name = nameField.value;
-  const list = data(name);
-  const pick = list[getRandom(list.length)];
+    - isClicked = !isClicked;
+*/
 
+/* 
+  1. 주사위 눈 가져오기
+    - cube의 dice 속성 값
 
-  if (!name || name.replaceAll(' ','') === '') {
-
-    showAlert({
-      target: '.alert-error',
-      message:'공백 허용되지 않습니다.',
-      timeout: 2000,
-      className: 'is-active',
-    })
-
-    // addClass('#nameField','shake')
-    shake('#nameField');
-
-    return;
-  }
-
-  if (!isNumbericString(name)) {
-    showAlert({
-      target: '.alert-error',
-      message: '정확한 이름을 입력해 주세요.',
-      timeout: 2000,
-      className: 'is-active',
-    });
-
-    shake('#nameField');
-
-    return;
-  }
-
-  clearContents(result);
-  insertLast(result, pick);
-}
-
-function handleCopyClipboard() {
+  2. 태그 만들기
+    - <tr>
+        <td>0</td> // 회차
+        <td>5</td> // 주사위 눈 수
+        <td>5</td> // 주사위 눈의 총 합
+      </tr>
   
-  const text = this.textContent;
+  3. 태그 렌더링하기
+    - insertLast
+*/
 
-  copy(text)
-    .then(() => {
-      showAlert({
-        target: '.alert-success',
-        className: 'is-active',
-        message: '클립보드 복사 완료!!',
-        timeout: 2000,
-      });
-    });
+let count = 0;
+let total = 0;
+
+function createItem(value) {
+  
+  return /* html */ `
+    <tr>
+      <td>${++count}</td>
+      <td>${value}</td>
+      <td>${(total += value)}</td>
+    </tr>
+  `;
+
 }
 
-submit.addEventListener('click', handleSubmit);
+function renderRecordItem() {
+  
+  /* 1. 주사위 눈 가져오기
+  - cube의 dice 속성 값 */
+  const diceNumber = +attr('#cube', 'dice');
 
-result.addEventListener('click', handleCopyClipboard);
+  insertLast('tbody', createItem(diceNumber));
+  // 유틸 함수로 변경해보도록.
+  recordListWrapper.scrollTop = recordListWrapper.scrollHeight;
+}
+
+
+/* 
+  3. setInterval diceAnimation 
+    - setInterval diceAnimation
+*/
+const handleRollingDice = (() => {
+  
+  let isclicked = false;
+  let id;
+
+  return () => {
+    /* 5. 애니메이션 재생 or 정지
+    - setInterval
+    - clearInterval */
+    if (!isclicked) {
+      id = setInterval(diceAnimation, 500);
+      recordButton.disabled = true;
+      resetButton.disabled = true;
+    } else {
+      clearInterval(id);
+      recordButton.disabled = false;
+      resetButton.disabled = false;
+    }
+
+    isclicked = !isclicked;
+
+    // setInterval(diceAnimation, 1000)
+  };
+})()
+
+function handleRecord() {
+  recordListWrapper.hidden = false;
+
+  renderRecordItem();
+}
+
+function handleReset() {
+  recordListWrapper.hidden = true;
+}
+
+/*  
+2. 클릭 이벤트 바인딩
+    - click
+*/
+rollingButton.addEventListener('click', handleRollingDice);
+recordButton.addEventListener('click', handleRecord)
+resetButton.addEventListener('click',handleReset)
+
