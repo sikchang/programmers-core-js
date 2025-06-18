@@ -97,7 +97,7 @@ xhr.get = (url,success,fail) => {
 // compound pattern
 xhr.get(
     END_POINT,
-    (data) => console.log(data),
+    // (data) => console.log(data), 
     () => { },
 )
 
