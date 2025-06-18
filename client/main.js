@@ -1,4 +1,11 @@
-import { diceAnimation, getNode, attr, insertLast } from './lib/index.js';
+import {
+  diceAnimation,
+  getNode,
+  attr,
+  insertLast,
+  endScroll,
+  clearContents
+} from './lib/index.js';
 
 const [rollingButton, recordButton, resetButton] = document.querySelectorAll(
   '.buttonGroup button'
@@ -74,8 +81,10 @@ function renderRecordItem(){
   const diceNumber = +attr('#cube','dice');
 
 
-  insertLast('tbody',createItem(diceNumber));
-  recordListWrapper.scrollTop = recordListWrapper.scrollHeight
+  insertLast('tbody', createItem(diceNumber));
+  // 유틸함수로 전환
+  // recordListWrapper.scrollTop = recordListWrapper.scrollHeight
+  // endScroll;
 }
 
 const handleRollingDice = (() => {
@@ -84,7 +93,7 @@ const handleRollingDice = (() => {
 
   return () => {
     if (!isClicked) {
-      id = setInterval(diceAnimation, 100);
+      id = setInterval(diceAnimation, 400);
       recordButton.disabled = true;
       resetButton.disabled = true;
     } else {
@@ -101,10 +110,14 @@ const handleRollingDice = (() => {
 function handleRecord(){
   recordListWrapper.hidden = false;
   renderRecordItem();
+  endScroll(recordListWrapper);
 }
 
 function handleReset(){
   recordListWrapper.hidden = true;
+  clearContents('tbody')
+  count = 0;
+  total = 0;
 }
 
 rollingButton.addEventListener('click', handleRollingDice);
