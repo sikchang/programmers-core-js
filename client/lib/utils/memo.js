@@ -32,7 +32,6 @@ export const memo = (() => {
 // console.log(memo('cube'));
 
 memo('say', () => 'hello')
-console.log(memo('hello'));
 
 
 
