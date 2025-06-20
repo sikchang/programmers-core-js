@@ -149,6 +149,97 @@ xhr.patch = (url, body, success, fail) => {
 
 
 
+const defaultOptions = {
+  method:'GET',
+  url:'',
+  body:null,
+  errorMessage:'서버와의 통신이 원활하지 않습니다.',
+  headers: {
+    'Content-Type':'application/json',
+    'Access-Control-Allow-Origin':'*'
+  }
+}
+
+export function xhrPromise(options = {}){
+  // 객채합성해서 config에 담았다 그러나 아래 구조분해 부분을 나눌 필요 없이 한번에 가능하다.
+  const {method,url,headers,body,errorMessage:message} = {
+    ...defaultOptions,
+    ...options,
+    headers:{
+      ...defaultOptions.headers,
+      ...options.headers
+    }
+  };
+
+    // config 담은  후 구조분해
+  // const { method, url, headers, body, errorMessage: message } = config
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.open(method,url);
+
+  if(!(method === 'DELETE')){
+    Object.entries(headers).forEach(([k,v])=>{
+      xhr.setRequestHeader(k,v);
+    })
+  }
+
+  xhr.send(body ? JSON.stringify(body) : null);
+
+  return new Promise((resolve, reject) => {
+      xhr.addEventListener('readystatechange',()=>{
+      const { readyState, status, response } = xhr;
+      if(readyState === 4){
+        if(status >= 200 && status < 400){
+          resolve(JSON.parse(response));
+        }else{
+          reject({message});
+        }
+      }
+    })
+  })
+}
+
+
+// xhrPromise({ url:END_POINT })
+// .then((res)=>{
+//   console.log( res );
+  
+// })
+
+
+xhrPromise.get = (url) => xhrPromise({ url });
+xhrPromise.post = (url,body) => xhrPromise({url,body,menubar:'POST'})
+xhrPromise.put = (url, body) => xhrPromise({ url, body, menubar: 'PUT' });
+xhrPromise.patch = (url, body) => xhrPromise({ url, body, menubar: 'PATCH' });
+xhrPromise.delete = url => xhrPromise({url,method:'DELETE'})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
