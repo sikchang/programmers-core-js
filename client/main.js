@@ -1,9 +1,7 @@
 import {
   sik,
-  delayP,
   getNode,
   END_POINT,
-  insertLast,
   changeColor,
   renderSpinner,
   renderUserCard,
@@ -66,7 +64,12 @@ function handleDelete(e) {
 
   const id = button.dataset.value;
 
-  sik.delete(`${END_POINT}/${id}`);
+  sik.delete(`${END_POINT}/${id}`)
+  .then(() => {
+    alert('삭제가 완료됐습니다.')
+
+    
+  })
 }
 
-userCardInner.addEventListener('click', handleDelete);
+// userCardInner.addEventListener('click', handleDelete);
